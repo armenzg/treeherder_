@@ -37,8 +37,10 @@ const emptyBzResponse = {
 };
 const testSkip = test.skip;
 testSkip('skipped test', () => {});
+const describeSkip = describe.skip;
+describeSkip('skipped describe', () => {});
 
-describe('Filtering', () => {
+describeSkip('Filtering', () => {
   beforeAll(() => {
     window.location.hash = `#/jobs?repo=${repoName}`;
     fetchMock.reset();
