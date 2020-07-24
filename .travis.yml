@@ -6,7 +6,7 @@ jobs:
     # Run JS tests
     - language: node_js
       # The Node version here must be kept in sync with that in `package.json`.
-      node_js: '12.14.1'
+      node_js: '12.18.3'
       cache: yarn
       before_install:
         # Try to keep version in sync with `package.json`
@@ -40,8 +40,8 @@ jobs:
       before_install:
         # XXX: I have not been able to install 3.7.2 to match runtime.txt
         - pyenv global 3.7.1
-        - nvm install 12.14.1
-        - nvm use 12.14.1
+        - nvm install 12.18.3
+        - nvm use 12.18.3
         # Steps to validate versions in use
         - python --version
         - pip --version

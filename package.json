@@ -7,7 +7,7 @@
   },
   "license": "MPL-2.0",
   "engines": {
-    "node": "12.14.1",
+    "node": "12.18.3",
     "yarn": "1.22.4"
   },
   "resolutions": {
@@ -106,5 +106,9 @@
     "test:coverage": "node ./node_modules/jest/bin/jest --silent --coverage",
     "test": "node ./node_modules/jest/bin/jest",
     "test:watch": "node ./node_modules/jest/bin/jest --watch"
+  },
+  "jest": {
+    "coverageDirectory": "./coverage/",
+    "collectCoverage": true
   }
 }
