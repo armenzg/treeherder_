@@ -1,12 +1,13 @@
-dist: xenial
+dist: bionic
 # Use the latest Travis images since they are more up to date than the stable release.
 group: edge
 jobs:
   include:
     # Run JS tests
     - language: node_js
-      # The Node version here must be kept in sync with that in `package.json`.
-      node_js: '12.18.3'
+      node_js:
+        - lts/*
+        - node
       cache: yarn
       before_install:
         # Try to keep version in sync with `package.json`
