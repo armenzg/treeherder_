@@ -83,7 +83,7 @@
     "eslint-plugin-prettier": "3.1.4",
     "eslint-plugin-react": "7.16.0",
     "fetch-mock": "9.4.0",
-    "jest": "26.1.0",
+    "jest": "25.5.4",
     "markdownlint-cli": "0.23.2",
     "node-fetch": "2.6.0",
     "prettier": "2.0.5",
@@ -92,7 +92,7 @@
   "scripts": {
     "build": "node ./node_modules/webpack/bin/webpack.js --mode production",
     "build:dev": "node ./node_modules/webpack/bin/webpack.js --mode development",
-    "codecov": "node ./node_modules/codecov/bin/codecov --disable=gcov && rm -rf coverage",
+    "codecov": "node ./node_modules/codecov/bin/codecov --disable=gcov",
     "format": "node ./node_modules/prettier/bin-prettier.js --write \"**/*.{css,html,js,jsx,json,md,yaml,yml}\"",
     "format:check": "node ./node_modules/prettier/bin-prettier.js --check \"**/*.{css,html,js,jsx,json,md,yaml,yml}\"",
     "heroku-postbuild": "yarn build",
@@ -103,8 +103,8 @@
     "start": "node ./node_modules/webpack-dev-server/bin/webpack-dev-server.js --mode development",
     "start:stage": "node ./node_modules/webpack-dev-server/bin/webpack-dev-server.js --mode development --env.BACKEND=https://treeherder.allizom.org",
     "start:local": "node ./node_modules/webpack-dev-server/bin/webpack-dev-server.js --mode development --env.BACKEND=http://localhost:8000",
-    "test:coverage": "node ./node_modules/jest/bin/jest --silent --collect-coverage",
-    "test": "node ./node_modules/jest/bin/jest",
+    "test:coverage": "node ./node_modules/jest/bin/jest --silent --coverage",
+    "test": "node ./node_modules/jest/bin/jest --silent",
     "test:watch": "node ./node_modules/jest/bin/jest --watch"
   }
 }
