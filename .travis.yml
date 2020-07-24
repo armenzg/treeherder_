@@ -16,80 +16,77 @@ jobs:
         - yarn install --frozen-lockfile
       script:
         # `yarn build` is tested as part of the Heroku build job
-        - yarn lint
+        # - yarn lint
         # `yarn lint` only checks the formatting of JS/JSX, this will also check CSS/HTML/JSON/Markdown/YAML.
-        - yarn format:check
-        - yarn markdownlint
+        # - yarn format:check
+        # - yarn markdownlint
         - yarn test:coverage
         - yarn codecov
 
-    # Run Heroku build & release related code
-    # This build is configured to catch issues on PRs that would only be detected as part of Heroku's
-    # build step when the code has already been merged to master
-    # The step ./bin/post_compile requires the output of `yarn build`, thus, we need to build
-    # both the JS and Python builds
-    - env:
-        - NODE_ENV=production YARN_PRODUCTION=true
-      # Since we're using Python/pip and Node/yarn use the generic image
-      language: generic
-      cache:
-        directories:
-          - $HOME/.cache/yarn
-          - $HOME/.cache/pip
-          - node_modules
-      before_install:
-        # XXX: I have not been able to install 3.7.2 to match runtime.txt
-        - pyenv global 3.7.1
-        - nvm install 12.18.3
-        - nvm use 12.18.3
-        # Steps to validate versions in use
-        - python --version
-        - pip --version
-        - node --version
-        - yarn --version
-      install:
-        - pip install -r requirements.txt
-        - yarn install
-      script:
-        - yarn heroku-postbuild
-        - ./manage.py collectstatic --noinput
-        # This generates the revision and does the Brotly/Gzip compression
-        - ./bin/post_compile
-
+    # # Run Heroku build & release related code
+    # # This build is configured to catch issues on PRs that would only be detected as part of Heroku's
+    # # build step when the code has already been merged to master
+    # # The step ./bin/post_compile requires the output of `yarn build`, thus, we need to build
+    # # both the JS and Python builds
+    # - env:
+    #     - NODE_ENV=production YARN_PRODUCTION=true
+    #   # Since we're using Python/pip and Node/yarn use the generic image
+    #   language: generic
+    #   cache:
+    #     directories:
+    #       - $HOME/.cache/yarn
+    #       - $HOME/.cache/pip
+    #       - node_modules
+    #   before_install:
+    #     # XXX: I have not been able to install 3.7.2 to match runtime.txt
+    #     - pyenv global 3.7.1
+    #     - nvm install 12.18.3
+    #     - nvm use 12.18.3
+    #     # Steps to validate versions in use
+    #     - python --version
+    #     - pip --version
+    #     - node --version
+    #     - yarn --version
+    #   install:
+    #     - pip install -r requirements.txt
+    #     - yarn install
+    #   script:
+    #     - yarn heroku-postbuild
+    #     - ./manage.py collectstatic --noinput
+    #     # This generates the revision and does the Brotly/Gzip compression
+    #     - ./bin/post_compile
     # Run Python tests & linters outside of the Docker containers
-    - language: python
-      python: '3.7'
-      cache: pip
-      install:
-        - pip install tox
-      script:
-        - tox
-        - tox -e docs
-
-    # Run Python tests inside of the Docker containers
-    - language: shell
-      services:
-        - docker
-      install:
-        - pip install tox --user
-        - pip install codecov --user
-      script:
-        - tox -e docker
-        - codecov -f coverage.xml
-
-    # Run Python Selenium tests
-    - language: node_js
-      services:
-        - docker
-      # The Node version here must be kept in sync with that in `package.json`.
-      node_js: '12.13.0'
-      cache: yarn
-      install:
-        - pip install tox --user
-        - pip install codecov --user
-      script:
-        - tox -e selenium
-        - codecov -f coverage.xml
+    # - language: python
+    #   python: '3.7'
+    #   cache: pip
+    #   install:
+    #     - pip install tox
+    #   script:
+    #     - tox
+    #     - tox -e docs
+    # # Run Python tests inside of the Docker containers
+    # - language: shell
+    #   services:
+    #     - docker
+    #   install:
+    #     - pip install tox --user
+    #     - pip install codecov --user
+    #   script:
+    #     - tox -e docker
+    #     - codecov -f coverage.xml
+    # # Run Python Selenium tests
+    # - language: node_js
+    #   services:
+    #     - docker
+    #   # The Node version here must be kept in sync with that in `package.json`.
+    #   node_js: '12.13.0'
+    #   cache: yarn
+    #   install:
+    #     - pip install tox --user
+    #     - pip install codecov --user
+    #   script:
+    #     - tox -e selenium
+    #     - codecov -f coverage.xml
 
 notifications:
   email:
