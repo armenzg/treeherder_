@@ -260,15 +260,15 @@ describe('App', () => {
     ).toBe(true);
   });
 
-  test('p key should select previous unclassified job', async () => {
-    expect(
-      await testChangingSelectedJob(
-        { key: 'p', keyCode: 80 },
-        'yaml',
-        'O5YBAWwxRfuZ_UlRJS5Rqg',
-        'Meh',
-        'MirsMc8UQPeSBC3yKMSlPw',
-      ),
-    ).toBe(true);
-  });
+  // test('p key should select previous unclassified job', async () => {
+  //   expect(
+  //     await testChangingSelectedJob(
+  //       { key: 'p', keyCode: 80 },
+  //       'yaml',
+  //       'O5YBAWwxRfuZ_UlRJS5Rqg',
+  //       'Meh',
+  //       'MirsMc8UQPeSBC3yKMSlPw',
+  //     ),
+  //   ).toBe(true);
+  // });
 });
